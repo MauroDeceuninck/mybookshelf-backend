@@ -16,10 +16,14 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const updated = await Book.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-  res.json(updated);
+  try {
+    const updated = await Book.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update book" });
+  }
 });
 
 router.delete("/:id", async (req, res) => {
