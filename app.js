@@ -10,15 +10,15 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 
+//const router = express.Router();
+
+//const Book = require("./models/book");
+//const verifyToken = require("./middleware/auth");
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
-
-const router = express.Router();
-
-const Book = require("../models/Book");
-const verifyToken = require("../middleware/auth");
 
 const app = express();
 const bookRouter = require("./routes/books");

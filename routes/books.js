@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Book = require("../models/Book");
+const Book = require("../models/book");
 const verifyToken = require("../middleware/auth");
 
 // GET books for the logged-in user
@@ -28,11 +28,15 @@ router.post("/", verifyToken, async (req, res) => {
 // PUT (update) an existing book
 router.put("/:id", verifyToken, async (req, res) => {
   try {
+    // Don't allow userId to be overwritten
+    const { userId, ...updateData } = req.body;
+
     const updated = await Book.findOneAndUpdate(
       { _id: req.params.id, userId: req.userId },
-      req.body,
+      updateData,
       { new: true }
     );
+
     if (!updated) return res.status(404).json({ error: "Book not found" });
     res.json(updated);
   } catch (err) {
