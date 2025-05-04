@@ -16,6 +16,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 const app = express();
+const bookRouter = require("./routes/books");
 
 app.use(cors());
 app.use(express.json());
@@ -28,5 +29,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/api/books", bookRouter);
 
 module.exports = app;

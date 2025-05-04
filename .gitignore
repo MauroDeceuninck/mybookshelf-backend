@@ -1,1 +1,26 @@
-/node_modules
+# Node modules (big and rebuildable)
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Express generator stuff
+/public/stylesheets/style.css.map
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+
+# Build output (if any)
+dist/
+build/
