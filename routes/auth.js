@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
   const hashed = await bcrypt.hash(password, 10);
   const user = new User({ username, password: hashed });
   await user.save();
-  res.json({ message: "User registered" });
+  res.json({ message: "User registered", username: user.username });
 });
 
 // Login
@@ -29,7 +29,11 @@ router.post("/login", async (req, res) => {
   if (!match) return res.status(400).json({ error: "Invalid credentials" });
 
   const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "2h" });
-  res.json({ token, userId: user._id });
+  res.json({
+    token,
+    userId: user._id,
+    username: user.username,
+  });
 });
 
 module.exports = router;
