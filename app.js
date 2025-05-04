@@ -15,8 +15,14 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
+const router = express.Router();
+
+const Book = require("../models/Book");
+const verifyToken = require("../middleware/auth");
+
 const app = express();
 const bookRouter = require("./routes/books");
+const authRouter = require("./routes/auth");
 
 app.use(cors());
 app.use(express.json());
@@ -30,5 +36,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api/books", bookRouter);
+app.use("/api/auth", authRouter);
 
 module.exports = app;
