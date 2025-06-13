@@ -24,7 +24,19 @@ const app = express();
 const bookRouter = require("./routes/books");
 const authRouter = require("./routes/auth");
 
-app.use(cors());
+const whitelist = ["https://mybookshelf.mauroserver.com"];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(logger("dev"));
