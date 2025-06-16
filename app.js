@@ -19,7 +19,10 @@ const app = express();
 const bookRouter = require("./routes/books");
 const authRouter = require("./routes/auth");
 
-const whitelist = ["https://mybookshelf.mauroserver.com"];
+const whitelist = [
+  "https://mybookshelf.mauroserver.com",
+  "http://localhost:3001",
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
