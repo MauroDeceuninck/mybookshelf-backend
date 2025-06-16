@@ -17,6 +17,11 @@ router.get("/", verifyToken, async (req, res) => {
 // POST a new book
 router.post("/", verifyToken, async (req, res) => {
   try {
+    const { title, author, status } = req.body;
+    if (!title || !author || !status) {
+      return res.status(400).json({ error: "Missing required book fields." });
+    }
+
     const book = new Book({ ...req.body, userId: req.userId });
     const saved = await book.save();
     res.json(saved);
